@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var expressWinston = require('express-winston');
+var loggerWinston = require('logger-winston');
+var expressLogger = loggerWinston.getLogger("Express")
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -20,15 +23,20 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
+// we use express-winston instad
+//app.use(logger('dev'));
+app.use(expressWinston.logger({
+    winstonInstance: expressLogger
+}));
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
 }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
