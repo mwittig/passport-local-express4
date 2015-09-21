@@ -4,10 +4,13 @@
  * Module dependencies.
  */
 
+var config = require("../config.json");
+var loggerWinston = require("logger-winston");
+loggerWinston.init(config);
+var logger = loggerWinston.getLogger("Server");
 var app = require('../app');
 //var debug = require('debug')('passport-local-express4:server');
 var loggerWinston = require('logger-winston');
-var logger = loggerWinston.getLogger("Server");
 var http = require('http');
 
 /**

@@ -39,11 +39,11 @@ The "debug" logger has been replace with "logger-winston". For the logging of ex
 
 The setup in "bin/www" is done as follows:
 
-    //var debug = require('debug')('passport-local-express4:server');
-    var loggerWinston = require('logger-winston');
-    var logger = loggerWinston.getLogger("Server");
-    ...
+   var config = require("./config.json");
+   var loggerWinston = require("logger-winston");
+   loggerWinston.init(config);
+   var logger = loggerWinston.getLogger("Server");
+   ...
 
-    //debug('Listening on ' + bind);
-    logger.info('Listening on ' + bind);
+   //var debug = require('debug')('passport-local-express4:server');
 
